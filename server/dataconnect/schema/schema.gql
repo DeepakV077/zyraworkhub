@@ -1,0 +1,52 @@
+type User @table {
+  email: String!
+  passwordHash: String!
+  createdAt: Timestamp!
+  displayName: String!
+  photoUrl: String
+  bio: String
+  contactNumber: String
+  role: String
+}
+
+type SpeakerApplication @table {
+  user: User!
+  applicationDate: Timestamp!
+  status: String!
+  resumeUrl: String
+  relevantExperience: String
+  proposedTopics: [String]
+}
+
+type WebinarSubmission @table {
+  user: User!
+  title: String!
+  description: String!
+  proposedDateTime: Timestamp!
+  submissionDate: Timestamp!
+  status: String!
+  expectedAudience: String
+  learningObjectives: [String]
+  materialsUrl: String
+}
+
+type Webinar @table {
+  title: String!
+  description: String!
+  dateTime: Timestamp!
+  speaker: User!
+  submission: WebinarSubmission!
+  status: String!
+  duration: Int
+  platformLink: String
+  recordingLink: String
+}
+
+type Notification @table {
+  user: User!
+  type: String!
+  message: String!
+  createdAt: Timestamp!
+  isRead: Boolean!
+  relatedEntityId: UUID
+}

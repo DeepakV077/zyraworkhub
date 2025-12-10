@@ -1,0 +1,26 @@
+[
+  {
+    "id": "web_1",
+    "title": "Intro to AI & ML",
+    "description": "A beginner friendly overview of AI and machine learning concepts.",
+    "date": "2025-11-10T15:00:00Z",
+    "duration_minutes": 90,
+    "thumbnail_url": "https://via.placeholder.com/800x450",
+    "domain": "AI",
+    "status": "upcoming",
+    "registered_count": 120,
+    "capacity": 300
+  },
+  {
+    "id": "web_2",
+    "title": "Design Thinking Workshop",
+    "description": "Hands-on workshop to learn design thinking and rapid prototyping.",
+    "date": "2025-08-20T10:00:00Z",
+    "duration_minutes": 120,
+    "thumbnail_url": "https://via.placeholder.com/800x450",
+    "domain": "Design",
+    "status": "completed",
+    "registered_count": 200,
+    "capacity": 200
+  }
+]

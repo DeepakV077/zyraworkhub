@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================
+   BASE STYLES
+===================== */
+@layer base {
+  :root {
+    --brand-orange: #FF7A00;
+    --brand-gold: #FFB800;
+    --brand-gradient: linear-gradient(90deg, #FF7A00 0%, #FFB800 100%);
+    --transition: all 0.3s ease-in-out;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-white text-gray-900 font-body antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    transition: var(--transition);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  a {
+    @apply no-underline transition-colors duration-200;
+  }
+
+  ::selection {
+    background-color: rgba(255, 122, 0, 0.2);
+  }
+
+  /* Scrollbar aesthetic */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-orange);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ff944d;
+  }
+}
+
+/* =====================
+   COMPONENT STYLES
+===================== */
+@layer components {
+  /* Primary Button */
+  .btn-primary {
+    @apply inline-block px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 shadow-md;
+    background: var(--brand-gradient);
+  }
+
+  .btn-primary:hover {
+    @apply scale-105;
+    box-shadow: 0 8px 24px rgba(255, 122, 0, 0.4);
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply inline-block px-6 py-3 rounded-full font-semibold border border-primary-orange text-primary-orange transition-all duration-300;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-primary-orange text-white scale-105;
+    box-shadow: 0 4px 12px rgba(255, 122, 0, 0.25);
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--brand-gradient);
+  }
+
+  /* Frosted Glass Card */
+  .glass-card {
+    @apply backdrop-blur-lg bg-white/80 rounded-2xl shadow-xl border border-gray-100;
+    transition: var(--transition);
+  }
+
+  .glass-card:hover {
+    @apply bg-white/90 shadow-2xl scale-[1.02];
+  }
+
+  /* Section Containers */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full border-t border-gray-100 my-8;
+  }
+
+  /* Navbar Link Styling */
+  .nav-link {
+    @apply text-gray-700 font-medium text-sm hover:text-primary-orange transition-colors duration-200;
+  }
+
+  .nav-link-active {
+    @apply text-primary-orange font-semibold relative;
+  }
+
+  /* Active link underline */
+  .nav-link-active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--brand-gradient);
+    border-radius: 2px;
+  }
+}
+
+/* =====================
+   ANIMATIONS
+===================== */
+@keyframes smoothDropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+.animate-smooth-dropdown {
+  animation: smoothDropdown 0.25s ease forwards;
+  transform-origin: top;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slide-down {
+  animation: slideDown 0.25s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* =====================
+   DARK MODE READY
+===================== */
+@layer base {
+  .dark body {
+    @apply bg-gray-950 text-gray-100;
+  }
+
+  .dark .btn-primary {
+    background: linear-gradient(90deg, #ff944d 0%, #ffcc66 100%);
+    box-shadow: 0 4px 16px rgba(255, 180, 0, 0.3);
+  }
+
+  .dark .btn-secondary {
+    @apply border-gray-400 text-gray-200 hover:bg-gray-800 hover:text-white;
+  }
+
+  .dark .gradient-text {
+    background-image: linear-gradient(90deg, #FFA500 0%, #FFD580 100%);
+  }
+
+  .dark .glass-card {
+    @apply bg-gray-900/70 border-gray-700;
+  }
+
+  ::selection {
+    background-color: rgba(255, 180, 0, 0.25);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ffb84d;
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "zyraworkhub-server",
+  "version": "0.1.0",
+  "description": "Server scaffold for Zyra WorkHub — Firebase-ready API endpoints",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src --exec \"node src/index.js\""
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "firebase": "^12.5.0",
+    "firebase-admin": "^11.11.1",
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
