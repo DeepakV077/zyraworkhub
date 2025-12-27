@@ -6,12 +6,12 @@ import DilliImg from "../assets/Dilli.jpg";
 import AdithyaImg from "../assets/Adithya.jpg";
 import KrishImg from "../assets/Krish.jpeg";
 import MithileshImg from "../assets/Mithilesh.jpg";
-import ThiruImg from "../assets/thiru.jpeg";
-import SudharsanImg from "../assets/sudharsan.jpeg";
-import SanjeevanImg from "../assets/sanjeevan.jpg";
-import KottiImg from "../assets/kotti.jpeg";
+import ThiruImg from "../assets/Thiru.jpeg";
+import SudharsanImg from "../assets/Sudharsan.jpeg";
+import SanjeevanImg from "../assets/Sanjeevan.jpg";
+import KottiImg from "../assets/Kotti.jpeg";
 import WillImg from "../assets/Bright.jpeg";
-import SanthithImg from "../assets/santhith.jpg";
+import SanthithImg from "../assets/Santhith.jpg";
 
 export default function About() {
   const values = [
