@@ -1,4 +1,4 @@
-# Zyra WorkHub
+# Zyra Academy
 
 > Empowering Youth Through Innovation
 
@@ -13,7 +13,7 @@ A modern, production-ready web platform for webinars, design services, and marke
 
 ## Overview
 
-Zyra WorkHub is a youth-driven startup platform that provides:
+Zyra Academy is a youth-driven startup platform that provides:
 - **Expert-Led Webinars** across various domains
 - **Professional Design Services** (branding, digital art, web design)
 - **Marketing Partnerships** for strategic brand growth
@@ -101,33 +101,6 @@ npm run build
 6. **Preview production build**
 ```bash
 npm run preview
-```
-
----
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── layout/              # Header, Footer, Layout
-│   └── home/                # Home page sections
-├── pages/                   # Route components
-│   ├── Home.tsx
-│   ├── About.tsx
-│   ├── Webinars.tsx
-│   ├── Portfolio.tsx
-│   ├── Contact.tsx
-│   └── SpeakerApplication.tsx
-├── lib/
-│   └── supabase.ts          # Supabase client
-├── config/
-│   └── design-tokens.ts     # Design system
-├── types/
-│   └── database.ts          # TypeScript types
-├── App.tsx                  # Router setup
-├── main.tsx                 # Entry point
-└── index.css                # Global styles
 ```
 
 ---
@@ -289,15 +262,15 @@ vercel --prod
 
 ## Contributing
 
-This is a proprietary project for Zyra WorkHub. For questions or suggestions:
+This is a proprietary project for Zyra Academy. For questions or suggestions:
 
-📧 Email: hello@zyraworkhub.com
+📧 Email: hello@zyraacademy.com
 
 ---
 
 ## License
 
-Copyright © 2025 Zyra WorkHub. All rights reserved.
+Copyright © 2025 Zyra Academy. All rights reserved.
 
 ---
 
@@ -315,7 +288,7 @@ Copyright © 2025 Zyra WorkHub. All rights reserved.
 For technical support or questions:
 - Review documentation in `ARCHITECTURE.md`
 - Check design patterns in `DESIGN_GUIDE.md`
-- Contact: hello@zyraworkhub.com
+- Contact: hello@zyraacademy.com
 
 ---
 

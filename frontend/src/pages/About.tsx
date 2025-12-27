@@ -1,6 +1,17 @@
 import { Target, Eye, Heart, Users, Award, Rocket } from "lucide-react";
 import DeepakImg from "../assets/Deepak.jpg";
 import LogeshImg from "../assets/logesh E.jpg";
+import DhineshImg from "../assets/Dhinesh.jpeg";
+import DilliImg from "../assets/Dilli.jpg";
+import AdithyaImg from "../assets/Adithya.jpg";
+import KrishImg from "../assets/Krish.jpeg";
+import MithileshImg from "../assets/Mithilesh.jpg";
+import ThiruImg from "../assets/thiru.jpeg";
+import SudharsanImg from "../assets/sudharsan.jpeg";
+import SanjeevanImg from "../assets/sanjeevan.jpg";
+import KottiImg from "../assets/kotti.jpeg";
+import WillImg from "../assets/Bright.jpeg";
+import SanthithImg from "../assets/santhith.jpg";
 
 export default function About() {
   const values = [
@@ -25,9 +36,9 @@ export default function About() {
   ];
 
   const achievements = [
-    { icon: Users, value: "10,000+", label: "Community Members" },
-    { icon: Award, value: "500+", label: "Webinars Delivered" },
-    { icon: Rocket, value: "350+", label: "Projects Completed" },
+    { icon: Users, value: "500+", label: "Community Members" },
+    { icon: Award, value: "7", label: "Webinars Delivered" },
+    { icon: Rocket, value: "3", label: "Projects Completed" },
   ];
 
   const teams = [
@@ -35,38 +46,38 @@ export default function About() {
       title: "Leadership Team",
       members: [
         { name: "Deepak V", role: "Founder & CEO", photo: DeepakImg },
-        { name: "Dilli", role: "Co-Founder & CTO" },
+        { name: "Dilli", role: "Co-Founder & CTO", photo: DilliImg },
         { name: "Logesh", role: "Co-Founder & COO", photo: LogeshImg },
       ],
     },
     {
       title: "Strategic Management",
       members: [
-        { name: "Krish", role: "Innovation & Strategy Manager", photo: "/images/team/krish.jpg" },
-        { name: "Aditya", role: "Human Resources Manager" },
+        { name: "Krish", role: "Innovation & Strategy Manager", photo: KrishImg },
+        { name: "Aditya", role: "Human Resources Manager", photo: AdithyaImg },
       ],
     },
     {
       title: "Creative Division",
       members: [
-        { name: "Mithilesh", role: "Design Lead", photo: "/images/team/mithilesh.jpg" },
-        { name: "Thiru", role: "Design Co-Lead", photo: "/images/team/thiru.jpg" },
+        { name: "Mithilesh", role: "Design Lead", photo: MithileshImg },
+        { name: "Thiru", role: "Design Co-Lead", photo: ThiruImg },
       ],
     },
     {
       title: "Community & Outreach Division",
       members: [
-        { name: "Will Bright", role: "Community Manager", photo: "/images/team/will.jpg" },
-        { name: "Santhith", role: "Community Manager" },
-        { name: "Dhinesh", role: "Outreach Coordinator", photo: "/images/team/dhinesh.jpg" },
+        { name: "Will Bright", role: "Community Manager", photo: WillImg },
+        { name: "Santhith", role: "Community Manager", photo: SanthithImg },
+        { name: "Dhinesh", role: "Outreach Coordinator", photo: DhineshImg },
       ],
     },
     {
       title: "Research & Content Division",
       members: [
-        { name: "Sudharsan", role: "Content Strategist", photo: "/images/team/sudharsan.jpg" },
-        { name: "Sanjeevan", role: "Research & Trend Analyst", photo: "/images/team/sanjeevan.jpg" },
-        { name: "Kotti", role: "Documentation Lead" },
+        { name: "Sudharsan", role: "Content Strategist", photo: SudharsanImg },
+        { name: "Sanjeevan", role: "Research & Trend Analyst", photo: SanjeevanImg },
+        { name: "Kotti", role: "Documentation Lead", photo: KottiImg },
       ],
     },
   ];
@@ -74,22 +85,38 @@ export default function About() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white section-spacing">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-[#ffb347]/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#ffd700]/20 rounded-full blur-3xl"></div>
-        </div>
+      <section className="relative bg-white section-spacing overflow-hidden">
+        {/* subtle premium accents (NOT backgrounds) */}
+        <div className="absolute top-16 left-16 w-56 h-56 bg-yellow-400/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-16 right-16 w-72 h-72 bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="section-container relative z-10 text-center">
-          <h1 className="text-5xl sm:text-6xl font-heading font-extrabold mb-6">
-            About <span className="gradient-text">Zyra Academy</span>
+          {/* small premium label */}
+          <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm font-semibold badge-yellow">
+            About Zyra Academy
+          </span>
+
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-extrabold mb-6 text-gray-900">
+            Building the Future with{" "}
+            <span className="gradient-text">Youth & Innovation</span>
           </h1>
-          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
             A youth-driven startup revolutionizing learning, innovation, and creativity
             through impactful webinars, design, and strategic collaborations.
           </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" className="btn-primary">
+              Get in Touch
+            </a>
+            <a href="#team" className="btn-secondary">
+              Meet the Team
+            </a>
+          </div>
         </div>
       </section>
+
 
       {/* Mission, Vision, Core Values */}
       <section className="section-spacing bg-white">
@@ -176,7 +203,7 @@ export default function About() {
                           className="w-full h-full object-cover rounded-xl transform transition-all duration-700 group-hover:scale-105 shadow-lg shadow-[#ffb347]/40"
                         />
                       ) : (
-                        <div className="flex items-center justify-center w-full h-full rounded-xl bg-gradient-to-br from-[#ff7b00]/10 to-[#ffd700]/10 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#ff7b00] to-[#ffd700]">
+                        <div className="flex items-center justify-center w-full h-full rounded-xl bg-gradient-to-br from-[#ff7b00] to-[#ffd700] text-4xl font-bold text-white">
                           {m.name.charAt(0)}
                         </div>
                       )}

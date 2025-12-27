@@ -1,84 +1,186 @@
-import { Link } from "react-router-dom";
-import Testimonials from "../components/home/Testimonials";
+import { Star } from "lucide-react";
 
-type Post = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  cover?: string;
+/* ---------------- TYPES ---------------- */
+
+type Testimonial = {
+  name: string;
+  session: string;
+  rating: number;
+  highlight: string;
 };
 
-const posts: Post[] = [
+/* ---------------- UNIQUE REAL FEEDBACK ---------------- */
+
+const testimonials: Testimonial[] = [
   {
-    slug: "success-stories",
-    title: "Success Stories",
-    excerpt: "Real community stories — students and startups who've grown with Zyra WorkHub.",
-    category: "community",
-    cover: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=60",
+    name: "Santhith P",
+    session: "UI/UX Hands-on Workshop",
+    rating: 5,
+    highlight:
+      "Clear explanations with a strong focus on quality UI and user experience thinking.",
   },
   {
-    slug: "design-case-study",
-    title: "Design Case Study: Rebranding a Local Startup",
-    excerpt: "How our design studio helped a startup increase conversions by 42%.",
-    category: "design",
-    cover: "https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1200&q=60",
+    name: "Logapriya D",
+    session: "UI/UX Hands-on Workshop",
+    rating: 4,
+    highlight:
+      "Very practical session — learning by doing made the concepts easy to grasp.",
   },
   {
-    slug: "product-strategy-101",
-    title: "Product Strategy 101",
-    excerpt: "Key lessons from our product workshops and what founders should focus on.",
-    category: "product",
-    cover: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=60",
+    name: "Punithaa Bhagyalakshmi G",
+    session: "UI/UX Hands-on Workshop",
+    rating: 5,
+    highlight:
+      "Designing interfaces live in Figma boosted my confidence instantly.",
+  },
+  {
+    name: "Sulaka B",
+    session: "HTML Bootcamp",
+    rating: 5,
+    highlight:
+      "I didn’t know even basic HTML earlier — now I’m motivated to learn CSS and JavaScript.",
+  },
+  {
+    name: "Anikasri B",
+    session: "HTML Bootcamp",
+    rating: 4,
+    highlight:
+      "Step-by-step teaching with hands-on practice made everything clear.",
+  },
+  {
+    name: "Sundareshwaran D",
+    session: "AI Unleashed",
+    rating: 5,
+    highlight:
+      "The future of AI was explained clearly with real-world relevance.",
+  },
+  {
+    name: "Abishek E",
+    session: "DNA Revolution",
+    rating: 5,
+    highlight:
+      "Real-life examples made complex biology topics exciting for engineers.",
   },
 ];
 
-export default function Blog() {
+/* ---------------- CALCULATIONS ---------------- */
+
+const averageRating =
+  testimonials.reduce((sum, t) => sum + t.rating, 0) / testimonials.length;
+
+/* ---------------- UI COMPONENTS ---------------- */
+
+function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="section-spacing bg-white">
-      <div className="section-container max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold mb-3">Blog & Insights</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Stories, case studies and tips from the Zyra community. Browse success
-            stories, technical write-ups, and our design showcases.
-          </p>
-        </div>
-
-        {/* Featured posts grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {posts.map((p) => (
-            <article key={p.slug} className="overflow-hidden bg-white border rounded-lg shadow-sm">
-              <div className="h-44 bg-gray-100 overflow-hidden">
-                {p.cover ? (
-                  // simple img tag; Testimonials has its own fallback
-                  <img src={p.cover} alt={p.title} className="w-full h-full object-cover" />
-                ) : null}
-              </div>
-              <div className="p-6">
-                <div className="text-xs uppercase text-primary-orange font-semibold mb-2">{p.category}</div>
-                <h3 className="font-bold text-lg mb-2">{p.title}</h3>
-                <p className="text-sm text-gray-600 mb-4">{p.excerpt}</p>
-                <Link to={`/blog/${p.slug}`} className="text-primary-orange font-medium">
-                  Read more →
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Success Stories section (also available as a post) */}
-        <section id="success-stories" className="mb-16">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Success Stories</h2>
-            <Link to="/blog/success-stories" className="text-sm text-primary-orange">
-              View all stories
-            </Link>
-          </div>
-
-          <Testimonials />
-        </section>
+    <div className="min-w-[320px] max-w-[320px] rounded-2xl bg-white border border-yellow-100 p-6 shadow-sm hover:shadow-xl transition-all">
+      <div className="flex gap-1 mb-3">
+        {[...Array(t.rating)].map((_, i) => (
+          <Star
+            key={i}
+            size={16}
+            className="text-yellow-500 fill-yellow-500"
+          />
+        ))}
       </div>
+
+      <p className="text-gray-700 mb-4 leading-relaxed">
+        “{t.highlight}”
+      </p>
+
+      <div className="pt-3 border-t text-sm">
+        <p className="font-semibold text-gray-900">{t.name}</p>
+        <p className="text-primary-orange">{t.session}</p>
+      </div>
+    </div>
+  );
+}
+
+function MovingRow({
+  items,
+  direction,
+}: {
+  items: Testimonial[];
+  direction: "left" | "right";
+}) {
+  return (
+    <div className="overflow-hidden">
+      <div
+        className={`flex gap-6 w-max ${
+          direction === "left"
+            ? "animate-marquee-left"
+            : "animate-marquee-right"
+        }`}
+      >
+        {[...items, ...items].map((t, i) => (
+          <TestimonialCard key={i} t={t} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- MAIN PAGE ---------------- */
+
+export default function FeedbackPage() {
+  return (
+    <div className="bg-white">
+      {/* ---------- HERO ---------- */}
+      <section className="relative bg-gradient-to-br from-yellow-50 via-white to-yellow-100 py-24 overflow-hidden">
+        <div className="absolute -top-24 -left-24 w-80 h-80 bg-yellow-300/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-orange-300/30 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10 text-center">
+          <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-primary-orange">
+            Real Student Feedback
+          </span>
+
+          <h1 className="text-4xl sm:text-5xl font-heading font-extrabold mb-6 text-gray-900">
+            Trusted by Learners Across{" "}
+            <span className="gradient-text">Zyra Academy</span>
+          </h1>
+
+          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+            Affordable ₹9 workshops. Real learning. Honest feedback from students
+            who experienced Zyra sessions firsthand.
+          </p>
+
+          {/* ⭐ AVERAGE RATING BLOCK */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex items-center gap-2 bg-white border border-yellow-200 px-6 py-3 rounded-full shadow-sm">
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className={`${
+                      i < Math.round(averageRating)
+                        ? "text-yellow-500 fill-yellow-500"
+                        : "text-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <span className="font-semibold text-gray-900">
+                {averageRating.toFixed(1)} / 5
+              </span>
+
+              <span className="text-gray-500 text-sm">
+                ({testimonials.length}+ verified reviews)
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- FEEDBACK MARQUEE ---------- */}
+      <section className="section-spacing bg-white">
+        <div className="max-w-6xl mx-auto px-4 space-y-12">
+          <MovingRow items={testimonials.slice(0, 3)} direction="left" />
+          <MovingRow items={testimonials.slice(2, 5)} direction="right" />
+          <MovingRow items={testimonials.slice(4, 7)} direction="left" />
+        </div>
+      </section>
     </div>
   );
 }

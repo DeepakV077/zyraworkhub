@@ -1,67 +1,35 @@
-import { useState } from 'react';
-import { Mic, Send } from 'lucide-react';
+import { useState } from "react";
+import { Mic } from "lucide-react";
+
+const WHATSAPP_NUMBER = "9176711456";
 
 export default function SpeakerApplication() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    bio: '',
-    linkedin_url: '',
-    twitter_url: '',
-    website_url: '',
-    expertise: '',
-    abstract: '',
+    name: "",
+    email: "",
+    bio: "",
+    expertise: "",
+    abstract: "",
+    linkedin_url: "",
+    website_url: "",
+    portfolio_note: "",
   });
+
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess(false);
+  /* ---------------- VALIDATION ---------------- */
 
-    try {
-      const expertiseArray = formData.expertise.split(',').map((item) => item.trim());
-      const payload = { ...formData, expertise: expertiseArray };
-      // In development, post to the local backend. In production the path is relative.
-      const BACKEND = import.meta.env.DEV ? 'http://127.0.0.1:4000' : '';
-      let res;
-      try {
-        res = await fetch(`${BACKEND}/api/speakers`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      } catch (networkErr: unknown) {
-        console.error('Network error while submitting speaker application:', networkErr);
-        throw new Error('Network error: could not reach the server');
-      }
-
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => null);
-        throw new Error(errBody?.error || `Server responded with ${res.status}`);
-      }
-
-      setSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        bio: '',
-        linkedin_url: '',
-        twitter_url: '',
-        website_url: '',
-        expertise: '',
-        abstract: '',
-      });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err || 'Failed to submit. Please try again.');
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
+  const validateForm = () => {
+    if (!formData.name.trim()) return "Full Name is required";
+    if (!formData.email.trim()) return "Email is required";
+    if (!formData.bio.trim()) return "Professional bio is required";
+    if (!formData.expertise.trim()) return "Areas of expertise is required";
+    if (!formData.abstract.trim()) return "Talk abstract is required";
+    return null;
   };
+
+  /* ---------------- HANDLERS ---------------- */
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -69,189 +37,258 @@ export default function SpeakerApplication() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    /* ---------------- AUTO META DATA ---------------- */
+
+    const now = new Date();
+
+    const applicationId = `ZYRA-SPK-${now.getFullYear()}${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${Math.random()
+      .toString(36)
+      .substring(2, 6)
+      .toUpperCase()}`;
+
+    const submittedAt = now.toLocaleString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata",
+    });
+
+    /* ---------------- WHATSAPP MESSAGE ---------------- */
+
+    const message = `
+*Speaker Application – Zyra Academy*
+
+*Application ID:*
+${applicationId}
+
+*Submitted On:*
+${submittedAt} IST
+
+----------------------------------
+
+*Name:*
+${formData.name}
+
+*Email:*
+${formData.email}
+
+*Professional Bio:*
+${formData.bio}
+
+*Areas of Expertise:*
+${formData.expertise
+  .split(",")
+  .map((e) => `- ${e.trim()}`)
+  .join("\n")}
+
+*Talk Abstract:*
+${formData.abstract}
+
+*LinkedIn:*
+${formData.linkedin_url || "N/A"}
+
+*Website / Portfolio Link:*
+${formData.website_url || "N/A"}
+
+*Portfolio / Work Samples:*
+${formData.portfolio_note || "Will share here in WhatsApp if available"}
+
+*Note:*
+If you have any portfolio files (PDF / PPT / ZIP),
+please attach them directly here in WhatsApp.
+`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    window.location.href = whatsappUrl;
+  };
+
+  /* ---------------- UI ---------------- */
+
   return (
-    <div>
-      <section className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
-        <div className="section-container text-center">
-          <Mic className="w-16 h-16 mx-auto mb-6 text-primary-orange" />
-          <h1 className="text-5xl sm:text-6xl font-heading font-extrabold mb-6">
-            Become a <span className="gradient-text">Speaker</span>
+    <div className="bg-white">
+      {/* HERO */}
+      <section className="relative py-24 bg-gradient-to-br from-yellow-50 via-white to-yellow-100 overflow-hidden">
+        <div className="absolute -top-24 -left-24 w-80 h-80 bg-yellow-300/30 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-orange-300/30 rounded-full blur-3xl" />
+
+        <div className="section-container relative z-10 text-center">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-primary-orange to-accent-yellow shadow-xl mb-6">
+            <Mic className="w-10 h-10 text-white" />
+          </div>
+
+          <h1 className="text-5xl sm:text-6xl font-heading font-extrabold mb-6 text-gray-900">
+            Become a{" "}
+            <span className="bg-gradient-to-r from-primary-orange to-accent-yellow bg-clip-text text-transparent">
+              Speaker
+            </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Share your expertise with thousands of learners worldwide
+
+          <p className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed">
+            Share your expertise, inspire learners, and grow your personal brand
+            with Zyra Academy.
           </p>
         </div>
       </section>
 
-      <section className="section-spacing bg-white">
+      {/* FORM */}
+      <section className="section-spacing bg-gray-50">
         <div className="section-container max-w-4xl">
-          <div className="glass-card p-8 md:p-12">
-            <div className="mb-8">
-              <h2 className="text-3xl font-heading font-bold mb-4">
-                Speaker Application Form
-              </h2>
-              <p className="text-gray-600 leading-relaxed">
-                We are always looking for passionate experts to share their knowledge. Fill out this form and we will review your application within 5-7 business days.
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                    placeholder="John Doe"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="bio" className="block font-medium text-gray-700 mb-2">
-                  Professional Bio *
-                </label>
-                <textarea
-                  id="bio"
-                  name="bio"
-                  required
-                  value={formData.bio}
+          <form onSubmit={handleSubmit} className="space-y-12">
+            <FormCard title="Basic Information">
+              <div className="grid md:grid-cols-2 gap-6">
+                <Input
+                  label="Full Name *"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange resize-none"
-                  placeholder="Tell us about your professional background and experience..."
+                />
+                <Input
+                  label="Email Address *"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormCard>
+
+            <FormCard title="Professional Profile">
+              <Textarea
+                label="Professional Bio *"
+                name="bio"
+                rows={4}
+                value={formData.bio}
+                onChange={handleChange}
+              />
+              <Input
+                label="Areas of Expertise *"
+                name="expertise"
+                value={formData.expertise}
+                onChange={handleChange}
+                hint="Comma-separated (e.g. Web Dev, AI, UI/UX)"
+              />
+            </FormCard>
+
+            <FormCard title="Talk Proposal">
+              <Textarea
+                label="Talk Abstract *"
+                name="abstract"
+                rows={6}
+                value={formData.abstract}
+                onChange={handleChange}
+              />
+            </FormCard>
+
+            <FormCard title="Online Presence & Portfolio">
+              <div className="grid md:grid-cols-2 gap-6">
+                <Input
+                  label="LinkedIn URL"
+                  name="linkedin_url"
+                  value={formData.linkedin_url}
+                  onChange={handleChange}
+                />
+                <Input
+                  label="Website / Portfolio Link"
+                  name="website_url"
+                  value={formData.website_url}
+                  onChange={handleChange}
                 />
               </div>
 
-              <div>
-                <label htmlFor="expertise" className="block font-medium text-gray-700 mb-2">
-                  Areas of Expertise *
-                </label>
-                <input
-                  type="text"
-                  id="expertise"
-                  name="expertise"
-                  required
-                  value={formData.expertise}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                  placeholder="Web Development, AI, Marketing (comma-separated)"
-                />
-                <p className="text-sm text-gray-500 mt-1">
-                  Separate multiple topics with commas
-                </p>
-              </div>
+              <Textarea
+                label="Portfolio Note (optional)"
+                name="portfolio_note"
+                rows={3}
+                value={formData.portfolio_note}
+                onChange={handleChange}
+                placeholder="Example: I have a PDF portfolio / GitHub repo / Drive link. I will share it in WhatsApp."
+              />
+            </FormCard>
 
-              <div>
-                <label htmlFor="abstract" className="block font-medium text-gray-700 mb-2">
-                  Talk Proposal/Abstract *
-                </label>
-                <textarea
-                  id="abstract"
-                  name="abstract"
-                  required
-                  value={formData.abstract}
-                  onChange={handleChange}
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange resize-none"
-                  placeholder="Describe your proposed webinar topic, what attendees will learn, and why it's valuable..."
-                />
-              </div>
+            {error && <Alert text={error} />}
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label htmlFor="linkedin_url" className="block font-medium text-gray-700 mb-2">
-                    LinkedIn URL
-                  </label>
-                  <input
-                    type="url"
-                    id="linkedin_url"
-                    name="linkedin_url"
-                    value={formData.linkedin_url}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                    placeholder="https://linkedin.com/in/..."
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="twitter_url" className="block font-medium text-gray-700 mb-2">
-                    Twitter URL
-                  </label>
-                  <input
-                    type="url"
-                    id="twitter_url"
-                    name="twitter_url"
-                    value={formData.twitter_url}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                    placeholder="https://twitter.com/..."
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="website_url" className="block font-medium text-gray-700 mb-2">
-                    Website URL
-                  </label>
-                  <input
-                    type="url"
-                    id="website_url"
-                    name="website_url"
-                    value={formData.website_url}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-                    placeholder="https://yourwebsite.com"
-                  />
-                </div>
-              </div>
-
-              {error && (
-                <div className="p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
-                  {error}
-                </div>
-              )}
-
-              {success && (
-                <div className="p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
-                  Thank you for applying! We will review your submission and get back to you soon.
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <span>{loading ? 'Submitting...' : 'Submit Application'}</span>
-                <Send className="w-5 h-5" />
-              </button>
-            </form>
-          </div>
+            <button
+              disabled={loading}
+              type="submit"
+              className="w-full rounded-xl bg-gradient-to-r from-primary-orange to-accent-yellow
+                         py-4 text-lg font-semibold text-white shadow-xl
+                         hover:opacity-90 transition disabled:opacity-50"
+            >
+              {loading ? "Redirecting to WhatsApp..." : "Submit Application"}
+            </button>
+          </form>
         </div>
       </section>
+    </div>
+  );
+}
+
+/* ---------------- REUSABLE UI ---------------- */
+
+function FormCard({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl p-8 space-y-6">
+      <h3 className="text-xl font-heading font-bold text-gray-900">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+function Input({ label, hint, ...props }: { label: string; hint?: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
+        {label}
+      </label>
+      <input
+        {...props}
+        className="w-full rounded-xl border border-gray-300 px-4 py-3
+                   focus:ring-4 focus:ring-yellow-100 focus:border-primary-orange transition"
+      />
+      {hint && <p className="text-xs text-gray-500 mt-1">{hint}</p>}
+    </div>
+  );
+}
+
+function Textarea({ label, ...props }: { label: string } & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
+        {label}
+      </label>
+      <textarea
+        {...props}
+        className="w-full rounded-xl border border-gray-300 px-4 py-3 resize-none
+                   focus:ring-4 focus:ring-yellow-100 focus:border-primary-orange transition"
+      />
+    </div>
+  );
+}
+
+function Alert({ text }: { text: string }) {
+  return (
+    <div className="rounded-xl p-4 border bg-red-50 border-red-200 text-red-700">
+      {text}
     </div>
   );
 }

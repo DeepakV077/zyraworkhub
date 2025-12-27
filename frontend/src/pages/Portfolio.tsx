@@ -1,171 +1,271 @@
-import { useEffect, useState, useCallback } from 'react';
-import { ExternalLink, Search } from 'lucide-react';
-import type { Project, ImageEntry } from '../types/database';
+import { useState } from "react";
+import { Search, X } from "lucide-react";
+
+/* ---------------- LOCAL IMAGES ---------------- */
+import html from "../assets/portfolio/webinar-html.png";
+import uiux from "../assets/portfolio/webinar-uiux.jpeg";
+import ai from "../assets/portfolio/webinar-ai.jpeg";
+import ml from "../assets/portfolio/webinar-ml.png";
+import dna from "../assets/portfolio/webinar-dna.jpeg";
+import genai from "../assets/portfolio/webinar-genai.png";
+import sketch from "../assets/portfolio/webinar-sketch.jpeg";
+
+/* ---------------- TYPES ---------------- */
+type Project = {
+  id: string;
+  order: number;
+  title: string;
+  description: string;
+  client_name: string;
+  category: string;
+  image: string;
+};
+
+/* ---------------- STATIC DATA ---------------- */
+const PROJECTS: Project[] = [
+  {
+    id: "1",
+    order: 1,
+    title: "HTML Bootcamp Poster",
+    description: "Creative poster for our comprehensive HTML webinar bootcamp. Learn the foundations of web development from expert instructors in this interactive live session.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: html,
+  },
+  {
+    id: "2",
+    order: 2,
+    title: "UI/UX Hands-on Workshop",
+    description: "Modern design poster for our UI/UX hands-on webinar workshop. Master design principles and create stunning user experiences in this live collaborative session.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: uiux,
+  },
+  {
+    id: "3",
+    order: 3,
+    title: "AI Unleashed Webinar",
+    description: "Promotional creative for our AI Unleashed webinar. Explore cutting-edge artificial intelligence applications and learn how AI is transforming industries.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: ai,
+  },
+  {
+    id: "4",
+    order: 4,
+    title: "Machine Learning Unplugged",
+    description: "Minimal poster for our Machine Learning Unplugged webinar. Dive deep into ML fundamentals and algorithms with hands-on examples from industry experts.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: ml,
+  },
+  {
+    id: "5",
+    order: 5,
+    title: "DNA Revolution Webinar",
+    description: "Scientific themed poster for our DNA Revolution genomics webinar. Discover the latest breakthroughs in genetic science and biotechnology innovations.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: dna,
+  },
+  {
+    id: "6",
+    order: 6,
+    title: "Generative AI Bootcamp",
+    description: "Bold poster for our Generative AI Bootcamp webinar. Learn to harness the power of generative AI tools and build intelligent applications.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: genai,
+  },
+  {
+    id: "7",
+    order: 7,
+    title: "From Sketch to Screen",
+    description: "Creative poster for our From Sketch to Screen webinar. Follow the complete UI/UX journey from concept to final digital product with live demonstrations.",
+    client_name: "Zyra Academy",
+    category: "poster",
+    image: sketch,
+  },
+];
 
 export default function Portfolio() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("all");
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  const fetchProjects = useCallback(async () => {
-    try {
-      const q = new URLSearchParams();
-      if (filterCategory && filterCategory !== 'all') q.set('category', filterCategory);
-      const BACKEND = import.meta.env.DEV ? 'http://127.0.0.1:4000' : '';
-      const res = await fetch(`${BACKEND}/api/projects?` + q.toString());
-      if (!res.ok) {
-        console.error('Failed to fetch projects, status:', res.status);
-        setProjects([]);
-        return;
-      }
-      const data = await res.json();
-      setProjects(data || []);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [filterCategory]);
+  // ❌ DO NOT CHANGE FILTER BUTTONS
+  const categories = ["all", "poster", "branding", "digital-art", "marketing"];
 
-  useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+  const filteredProjects = PROJECTS
+    .sort((a, b) => a.order - b.order) // ✅ ORDER MAINTAINED
+    .filter((p) => {
+      const matchSearch =
+        p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-  const getFirstImage = (images?: ImageEntry[] | null): string | null => {
-    if (!images || !Array.isArray(images) || images.length === 0) return null;
-    const sorted = [...images].sort((a, b) => (a.order || 0) - (b.order || 0));
-    return sorted[0]?.url || null;
-  };
+      const matchCategory =
+        filterCategory === "all" || p.category === filterCategory;
 
-  const categories = ['all', 'branding', 'poster', 'digital-art', 'web-design', 'marketing'];
-
-  const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.client_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+      return matchSearch && matchCategory;
+    });
 
   return (
     <div>
-      <section className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+      {/* HERO */}
+      <section className="bg-gradient-to-b from-yellow-50 to-white py-24">
         <div className="section-container text-center">
+          <span className="inline-block mb-4 px-4 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-primary-orange">
+            Design & Marketing
+          </span>
+
           <h1 className="text-5xl sm:text-6xl font-heading font-extrabold mb-6">
             Our <span className="gradient-text">Portfolio</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Showcasing exceptional design and creative projects that bring visions to life
+
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            Webinar posters and creative designs crafted to engage, inspire,
+            and convert audiences.
           </p>
         </div>
       </section>
 
+      {/* CONTENT */}
       <section className="section-spacing bg-white">
         <div className="section-container">
-          <div className="mb-8">
-            <div className="relative mb-6">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-orange"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setFilterCategory(category)}
-                  className={`px-6 py-2 rounded-full font-medium transition-all capitalize ${
-                    filterCategory === category
-                      ? 'bg-gradient-to-r from-primary-orange to-accent-yellow text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {category === 'all' ? 'All Projects' : category.replace('-', ' ')}
-                </button>
-              ))}
-            </div>
+          {/* SEARCH */}
+          <div className="relative mb-6">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search projects..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 py-3 border rounded-lg focus:ring-2 focus:ring-primary-orange"
+            />
           </div>
 
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="glass-card overflow-hidden animate-pulse">
-                  <div className="bg-gray-200 h-64"></div>
+          {/* FILTERS (UNCHANGED) */}
+          <div className="flex flex-wrap gap-2 mb-12">
+            {categories.map((c) => (
+              <button
+                key={c}
+                onClick={() => setFilterCategory(c)}
+                className={`px-5 py-2 rounded-full text-sm font-medium capitalize ${filterCategory === c
+                    ? "bg-gradient-to-r from-primary-orange to-accent-yellow text-white"
+                    : "bg-gray-100 hover:bg-gray-200"
+                  }`}
+              >
+                {c === "all" ? "All Projects" : c.replace("-", " ")}
+              </button>
+            ))}
+          </div>
+
+          {/* GRID */}
+          {filteredProjects.length === 0 ? (
+            <div className="text-center py-24">
+              <div className="max-w-xl mx-auto">
+                <h3 className="text-2xl font-heading font-bold text-gray-800 mb-4">
+                  Designs Coming Soon ✨
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  We’re actively working on new{" "}
+                  <span className="font-semibold text-primary-orange">
+                    {filterCategory.replace("-", " ")}
+                  </span>{" "}
+                  projects.
+                  <br />
+                  Stay tuned — exciting creative work will be showcased here shortly.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {filteredProjects.map((project) => (
+                <div
+                  key={project.id}
+                  onClick={() => setActiveProject(project)}
+                  onKeyDown={(e) => e.key === 'Enter' && setActiveProject(project)}
+                  role="button"
+                  tabIndex={0}
+                  className="glass-card overflow-hidden cursor-pointer hover:-translate-y-2 hover:shadow-2xl transition"
+                >
+                  <div className="h-56 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform"
+                    />
+                  </div>
+
                   <div className="p-6">
-                    <div className="bg-gray-200 h-6 rounded mb-3"></div>
-                    <div className="bg-gray-200 h-4 rounded"></div>
+                    <h3 className="text-xl font-heading font-bold mb-1">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-2">
+                      Client: {project.client_name}
+                    </p>
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {project.description}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
-          ) : filteredProjects.length === 0 ? (
-            <div className="text-center py-16">
-              <ExternalLink className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-2xl font-heading font-bold text-gray-900 mb-2">
-                No projects found
-              </h3>
-              <p className="text-gray-600">Try adjusting your search or filters</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => {
-                const imageUrl = getFirstImage(project.images);
-                return (
-                  <div
-                    key={project.id}
-                    className="glass-card overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer"
-                  >
-                    <div className="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <ExternalLink className="w-16 h-16 text-gray-400" />
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-primary-orange text-xs font-semibold uppercase">
-                        {project.category}
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <h3 className="text-xl font-heading font-bold mb-2 group-hover:text-primary-orange transition-colors line-clamp-1">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 mb-3">Client: {project.client_name}</p>
-                      <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      {project.tags && project.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {project.tags.slice(0, 3).map((tag: string) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-600"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
           )}
         </div>
       </section>
+
+      {/* MODAL */}
+      {activeProject && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-6"
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            className="absolute inset-0 w-full h-full cursor-default"
+            onClick={() => setActiveProject(null)}
+            aria-label="Close modal"
+            tabIndex={-1}
+          />
+          <div
+            className="bg-white rounded-2xl max-w-4xl w-full overflow-hidden animate-scaleIn relative z-10"
+            role="document"
+          >
+            <button
+              onClick={() => setActiveProject(null)}
+              className="absolute top-4 right-4 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+              aria-label="Close modal"
+            >
+              <X />
+            </button>
+
+            <img
+              src={activeProject.image}
+              alt={activeProject.title}
+              className="w-full max-h-[70vh] object-contain bg-black"
+            />
+
+            <div className="p-6">
+              <span className="inline-block mb-2 px-3 py-1 text-xs rounded-full bg-yellow-100 text-primary-orange font-semibold">
+                poster
+              </span>
+
+              <h2 className="text-2xl font-heading font-extrabold mb-2">
+                {activeProject.title}
+              </h2>
+
+              <p className="text-gray-600 mb-3">
+                Client: <strong>{activeProject.client_name}</strong>
+              </p>
+
+              <p className="text-gray-700 leading-relaxed">
+                {activeProject.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

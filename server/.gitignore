@@ -1,5 +1,0 @@
-node_modules/
-*.log
-serviceAccountKey.json
-/.env
-server/dataconnect/schema/schema.gql
