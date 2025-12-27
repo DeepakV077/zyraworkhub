@@ -209,47 +209,109 @@ In the `frontend/` directory:
 
 ## 🌐 Deployment
 
-### Static Hosting (Recommended)
+### Vercel (Recommended - Frontend Subdirectory)
 
-The app is a fully static site and can be deployed to:
+Since the app is in the `frontend/` subdirectory, use one of these methods:
 
-#### Vercel
+#### Method 1: Auto-Deploy with vercel.json (Easiest)
+
+The `vercel.json` file is already configured. Just push to trigger deployment:
+
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-cd frontend
-vercel --prod
+git add vercel.json
+git commit -m "chore: add Vercel config"
+git push origin main
 ```
 
-#### Netlify
-```bash
-# Install Netlify CLI
-npm i -g netlify-cli
+Vercel will automatically detect the config and deploy correctly!
 
-# Deploy
+#### Method 2: Update Vercel Project Settings
+
+If already deployed but getting 404:
+
+1. Go to [vercel.com](https://vercel.com/dashboard)
+2. Open your project → **Settings** → **General**
+3. Scroll to **Build & Development Settings**
+4. Update:
+   - **Root Directory**: `frontend` ⚠️
+   - **Framework Preset**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Install Command**: `npm install`
+5. Click **Save**
+6. Go to **Deployments** → **⋯** (three dots) → **Redeploy**
+
+#### Method 3: CLI Deploy
+
+```bash
+# From project root
+vercel --prod
+
+# It will auto-detect vercel.json settings
+```
+
+---
+
+### Netlify
+
+Create `netlify.toml` in root:
+
+```toml
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+Then push or use CLI:
+
+```bash
 cd frontend
 npm run build
 netlify deploy --prod --dir=dist
 ```
 
-#### GitHub Pages
-1. Build the project: `npm run build`
-2. Push `dist/` to `gh-pages` branch
-3. Enable GitHub Pages in repository settings
+---
 
-#### Other Options
-- **Cloudflare Pages**
-- **Firebase Hosting**
-- **AWS S3 + CloudFront**
-- **Azure Static Web Apps**
+### GitHub Pages
 
-### Build Configuration
+```bash
+cd frontend
+npm run build
 
-- **Output Directory**: `frontend/dist/`
+# Install gh-pages if needed
+npm install -D gh-pages
+
+# Add to package.json scripts:
+# "deploy": "gh-pages -d dist"
+
+npm run deploy
+```
+
+Enable Pages in repo settings: **Settings** → **Pages** → Source: `gh-pages` branch
+
+---
+
+### Other Platforms
+
+- **Cloudflare Pages**: Set build command to `cd frontend && npm run build`, output to `frontend/dist`
+- **Firebase Hosting**: Run `firebase init hosting` in `frontend/` directory
+- **Render**: Set root directory to `frontend`, build command `npm run build`
+
+---
+
+### Build Configuration Summary
+
+- **Root Directory**: `frontend/` ⚠️ (Important for subdirectory setup)
 - **Build Command**: `npm run build`
+- **Output Directory**: `dist` (relative to root directory)
 - **Node Version**: 18+
+- **Install Command**: `npm install`
 - **Environment Variables**: None required (fully static)
 
 ---
