@@ -1,7 +1,22 @@
 import { useState } from "react";
 import { Megaphone, Users, Calendar, Send, CheckCircle } from "lucide-react";
+import SEO from "../components/SEO";
 
 export default function Marketing() {
+  return (
+    <>
+      <SEO
+        title="Marketing Services - Strategic Brand Growth"
+        description="Partner with Zyra Academy for comprehensive marketing services. Social media management, content creation, SEO, brand strategy, and digital marketing solutions."
+        keywords="marketing services, digital marketing, social media management, brand strategy, content marketing, SEO services, marketing partnerships"
+        url="https://zyraacademy.com/marketing"
+      />
+      <MarketingContent />
+    </>
+  );
+}
+
+function MarketingContent() {
   const [form, setForm] = useState({
     name: "",
     event: "",

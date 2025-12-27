@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 import {
   Palette,
   Layout,
@@ -9,6 +10,20 @@ import {
 } from "lucide-react";
 
 export default function DesignStudio() {
+  return (
+    <>
+      <SEO
+        title="Design Studio - Professional Creative Services"
+        description="Zyra Academy Design Studio offers professional branding, logo design, posters, digital art, web design, and creative solutions for businesses and individuals."
+        keywords="design studio, graphic design, branding services, logo design, poster design, web design, digital art, creative services, professional design"
+        url="https://zyraacademy.com/design-studio"
+      />
+      <DesignStudioContent />
+    </>
+  );
+}
+
+function DesignStudioContent() {
   const services = [
     {
       icon: Palette,

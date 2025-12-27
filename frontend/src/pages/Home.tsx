@@ -15,11 +15,13 @@ import {
 import UpcomingWebinars from '../components/home/UpcomingWebinars';
 import FeaturedProjects from '../components/home/FeaturedProjects';
 import SEO from '../components/SEO';
+import { OrganizationSEO } from '../components/StructuredData';
 
 export default function Home() {
   return (
     <>
       <SEO />
+      <OrganizationSEO />
       <HomeContent />
     </>
   );

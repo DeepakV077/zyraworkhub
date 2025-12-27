@@ -4,6 +4,20 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 const WHATSAPP_NUMBER = '9176711456';
 
 export default function Contact() {
+  return (
+    <>
+      <SEO
+        title="Contact Us - Get in Touch"
+        description="Contact Zyra Academy for webinar inquiries, design services, marketing partnerships, or general questions. We're here to help empower your journey."
+        keywords="contact zyra academy, get in touch, webinar inquiry, design services contact, partnership inquiry, student support"
+        url="https://zyraacademy.com/contact"
+      />
+      <ContactContent />
+    </>
+  );
+}
+
+function ContactContent() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',

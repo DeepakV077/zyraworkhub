@@ -1,4 +1,5 @@
 import { Target, Eye, Heart, Users, Award, Rocket } from "lucide-react";
+import SEO from "../components/SEO";
 import DeepakImg from "../assets/Deepak.jpg";
 import LogeshImg from "../assets/logesh E.jpg";
 import DhineshImg from "../assets/Dhinesh.jpeg";
@@ -14,6 +15,20 @@ import WillImg from "../assets/Bright.jpeg";
 import SanthithImg from "../assets/Santhith.jpg";
 
 export default function About() {
+  return (
+    <>
+      <SEO
+        title="About Us - Youth-Driven Innovation"
+        description="Meet the passionate team behind Zyra Academy. We're young innovators empowering youth through expert-led webinars, design services, and marketing support."
+        keywords="about zyra academy, youth startup, student innovation, young entrepreneurs, tech education team, design studio team"
+        url="https://zyraacademy.com/about"
+      />
+      <AboutContent />
+    </>
+  );
+}
+
+function AboutContent() {
   const values = [
     {
       icon: Target,

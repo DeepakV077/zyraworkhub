@@ -4,6 +4,20 @@ import { Mic } from "lucide-react";
 const WHATSAPP_NUMBER = "9176711456";
 
 export default function SpeakerApplication() {
+  return (
+    <>
+      <SEO
+        title="Become a Speaker - Share Your Knowledge"
+        description="Apply to become a speaker at Zyra Academy. Share your expertise in AI, Web Development, Design, or any tech field with eager learners worldwide."
+        keywords="speaker application, become a speaker, teach webinar, expert speaker, tech instructor, share knowledge, webinar host"
+        url="https://zyraacademy.com/speaker-application"
+      />
+      <SpeakerApplicationContent />
+    </>
+  );
+}
+
+function SpeakerApplicationContent() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

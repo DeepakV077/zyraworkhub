@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import SEO from "../components/SEO";
 
 /* ---------------- TYPES ---------------- */
 
@@ -123,7 +124,14 @@ function MovingRow({
 
 export default function FeedbackPage() {
   return (
-    <div className="bg-white">
+    <>
+      <SEO
+        title="Blog - Success Stories & Insights"
+        description="Read success stories, webinar feedback, and insights from Zyra Academy students. Learn from their experiences and growth journeys."
+        keywords="blog, success stories, student feedback, webinar reviews, learning journey, tech education blog, student testimonials"
+        url="https://zyraacademy.com/blog"
+      />
+      <div className="bg-white">
       {/* ---------- HERO ---------- */}
       <section className="relative bg-gradient-to-br from-yellow-50 via-white to-yellow-100 py-24 overflow-hidden">
         <div className="absolute -top-24 -left-24 w-80 h-80 bg-yellow-300/30 rounded-full blur-3xl" />
@@ -182,5 +190,6 @@ export default function FeedbackPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

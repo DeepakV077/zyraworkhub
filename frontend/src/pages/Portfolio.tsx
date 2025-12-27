@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, X } from "lucide-react";
+import SEO from "../components/SEO";
 
 /* ---------------- LOCAL IMAGES ---------------- */
 import html from "../assets/portfolio/webinar-html.png";
