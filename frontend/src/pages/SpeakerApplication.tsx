@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Mic } from "lucide-react";
+import SEO from "../components/SEO";
 
 const WHATSAPP_NUMBER = "9176711456";
 
