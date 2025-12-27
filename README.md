@@ -349,7 +349,7 @@ This project is licensed under the **MIT License**.
 ### Contact
 
 - **Website**: [zyraacademy.com](https://zyraacademy.com)
-- **Email**: contact@zyraacademy.com
+- **Email**: zyra.teams.in@gmail.com
 - **LinkedIn**: [Zyra Academy](https://linkedin.com/company/zyraacademy)
 - **Instagram**: [@zyraacademy](https://instagram.com/zyraacademy)
 

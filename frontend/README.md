@@ -264,7 +264,7 @@ vercel --prod
 
 This is a proprietary project for Zyra Academy. For questions or suggestions:
 
-📧 Email: hello@zyraacademy.com
+📧 Email: zyra.teams.in@gmail.com
 
 ---
 
@@ -288,7 +288,7 @@ Copyright © 2025 Zyra Academy. All rights reserved.
 For technical support or questions:
 - Review documentation in `ARCHITECTURE.md`
 - Check design patterns in `DESIGN_GUIDE.md`
-- Contact: hello@zyraacademy.com
+- Contact: zyra.teams.in@gmail.com
 
 ---
 

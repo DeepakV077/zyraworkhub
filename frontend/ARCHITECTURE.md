@@ -488,7 +488,7 @@ All operations use Supabase client SDK with automatic authentication.
 For questions about architecture or implementation:
 - Technical Lead: [Your Team]
 - Documentation: This file + inline code comments
-- Support: hello@zyraacademy.com
+- Support: zyra.teams.in@gmail.com
 
 ---
 

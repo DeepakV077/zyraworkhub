@@ -145,7 +145,7 @@ export function OrganizationSEO({
     ],
     "contactPoint": {
       "@type": "ContactPoint",
-      "email": "contact@zyraacademy.com",
+      "email": "zyra.teams.in@gmail.com",
       "contactType": "Customer Service",
       "availableLanguage": ["English"]
     },
