@@ -14,8 +14,18 @@ import {
 
 import UpcomingWebinars from '../components/home/UpcomingWebinars';
 import FeaturedProjects from '../components/home/FeaturedProjects';
+import SEO from '../components/SEO';
 
 export default function Home() {
+  return (
+    <>
+      <SEO />
+      <HomeContent />
+    </>
+  );
+}
+
+function HomeContent() {
   const stats = [
     { label: 'Webinars Conducted', value: '7', icon: Calendar },
     { label: 'Students Reached', value: '750+', icon: Users },

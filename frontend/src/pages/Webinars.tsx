@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, Clock, Users, ArrowRight, Linkedin, Star } from "lucide-react";
+import SEO from "../components/SEO";
 
 /* ===================== WEBINAR DATA ===================== */
 const WEBINARS = [
@@ -95,6 +96,28 @@ export default function Webinars() {
   const [filterStatus, setFilterStatus] = useState<"all" | "completed" | "ongoing">("all");
   const AVG_RATING = 4.7;
 
+  return (
+    <>
+      <SEO
+        title="Webinars - Expert-Led Online Learning | Zyra Academy"
+        description="Join our expert-led webinars on AI, Web Development, UI/UX Design, Machine Learning, and more. Free and affordable sessions for students and young professionals."
+        keywords="webinars, online courses, AI webinar, web development course, UI/UX design, machine learning, tech education, student webinars"
+        url="https://zyraacademy.com/webinars"
+      />
+      <WebinarsContent filterStatus={filterStatus} setFilterStatus={setFilterStatus} avgRating={AVG_RATING} />
+    </>
+  );
+}
+
+function WebinarsContent({ 
+  filterStatus, 
+  setFilterStatus, 
+  avgRating 
+}: { 
+  filterStatus: "all" | "completed" | "ongoing"; 
+  setFilterStatus: (status: "all" | "completed" | "ongoing") => void;
+  avgRating: number;
+}) {
   const getStatusStyles = (status: string) =>
     status === "ongoing"
       ? "bg-orange-500 text-white"
@@ -139,7 +162,7 @@ export default function Webinars() {
             </Link>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 border border-white/40">
               <Star className="w-4 h-4" />
-              <span className="font-semibold">{AVG_RATING} Avg Rating</span>
+              <span className="font-semibold">{avgRating} Avg Rating</span>
             </div>
           </div>
         </div>
