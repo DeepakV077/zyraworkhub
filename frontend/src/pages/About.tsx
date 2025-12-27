@@ -61,38 +61,38 @@ function AboutContent() {
       title: "Leadership Team",
       members: [
         { name: "Deepak V", role: "Founder & CEO", photo: DeepakImg },
-        { name: "Dilli", role: "Co-Founder & CTO", photo: DilliImg },
-        { name: "Logesh", role: "Co-Founder & COO", photo: LogeshImg },
+        { name: "Dilli Baskaran K", role: "Co-Founder & CTO", photo: DilliImg },
+        { name: "Logesh E", role: "Co-Founder & COO", photo: LogeshImg },
       ],
     },
     {
       title: "Strategic Management",
       members: [
-        { name: "Krish", role: "Innovation & Strategy Manager", photo: KrishImg },
-        { name: "Aditya", role: "Human Resources Manager", photo: AdithyaImg },
+        { name: "Krish Roshan R", role: "Innovation & Strategy Manager", photo: KrishImg },
+        { name: "Adithya S", role: "Human Resources Manager", photo: AdithyaImg },
       ],
     },
     {
       title: "Creative Division",
       members: [
-        { name: "Mithilesh", role: "Design Lead", photo: MithileshImg },
-        { name: "Thiru", role: "Design Co-Lead", photo: ThiruImg },
+        { name: "Mithilesh R", role: "Design Lead", photo: MithileshImg },
+        { name: "Thiruvarangan M", role: "Design Co-Lead", photo: ThiruImg },
       ],
     },
     {
       title: "Community & Outreach Division",
       members: [
         { name: "Will Bright", role: "Community Manager", photo: WillImg },
-        { name: "Santhith", role: "Community Manager", photo: SanthithImg },
-        { name: "Dhinesh", role: "Outreach Coordinator", photo: DhineshImg },
+        { name: "Santhith P", role: "Community Manager", photo: SanthithImg },
+        { name: "Dhinesh V N", role: "Outreach Coordinator", photo: DhineshImg },
       ],
     },
     {
       title: "Research & Content Division",
       members: [
-        { name: "Sudharsan", role: "Content Strategist", photo: SudharsanImg },
-        { name: "Sanjeevan", role: "Research & Trend Analyst", photo: SanjeevanImg },
-        { name: "Kotti", role: "Documentation Lead", photo: KottiImg },
+        { name: "Sudharsan R", role: "Content Strategist", photo: SudharsanImg },
+        { name: "Sanjeevan G", role: "Research & Trend Analyst", photo: SanjeevanImg },
+        { name: "Kottishwaran R", role: "Documentation Lead", photo: KottiImg },
       ],
     },
   ];
