@@ -72,11 +72,8 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 font-poppins">
         <div className="flex justify-between items-center h-20">
           {/* --- Logo --- */}
-          <button 
-            onClick={() => {
-              window.location.href = '/';
-              window.location.reload();
-            }} 
+          <a 
+            href="/"
             className="flex items-center gap-2 cursor-pointer"
           >
             <img
@@ -84,7 +81,7 @@ export default function Header() {
               alt="Zyra Academy"
               className="w-35 h-20 hover:scale-105 transition-transform"
             />
-          </button>
+          </a>
 
           {/* --- Desktop Nav --- */}
           <div className="hidden lg:flex items-center gap-8" ref={navRef}>
