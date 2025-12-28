@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import logoImage from "./assets/Log1.png";
+// import logoImage from "../../assets/Logos/BlueZyra.png";
+import logoImage from "../../assets/Logos/InZyra.png";
+// import logoImage from "../../assets/Logos/YellowZyra.png";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,16 +72,19 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 font-poppins">
         <div className="flex justify-between items-center h-20">
           {/* --- Logo --- */}
-          <Link to="/" className="flex items-center gap-2">
+          <button 
+            onClick={() => {
+              window.location.href = '/';
+              window.location.reload();
+            }} 
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <img
               src={logoImage}
               alt="Zyra Academy"
-              className="w-11 h-11 rounded-xl hover:scale-105 transition-transform"
+              className="w-35 h-20 hover:scale-105 transition-transform"
             />
-            <span className="hidden sm:block font-extrabold text-3xl bg-gradient-to-r from-[#FF7A00] to-[#FFB800] text-transparent bg-clip-text tracking-tight">
-              Zyra Academy
-            </span>
-          </Link>
+          </button>
 
           {/* --- Desktop Nav --- */}
           <div className="hidden lg:flex items-center gap-8" ref={navRef}>

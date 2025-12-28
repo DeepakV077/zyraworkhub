@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react";
-import logoImage from "./assets/Log.png";
+// import logoImage from "../../assets/Logos/BlueS.png";
+// import logoImage from "../../assets/Logos/YellowS.png";
+import logoImage from "../../assets/Logos/InS.png";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -18,7 +20,7 @@ export default function Footer() {
               <img
                 src={logoImage}
                 alt="Zyra Academy"
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-30 h-20 "
               />
               <span className="text-xl font-heading font-bold gradient-text">
                 Zyra Academy
